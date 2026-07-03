@@ -1,5 +1,7 @@
 let employees =
-    JSON.parse(localStorage.getItem("employees")) || [];
+    JSON.parse(
+        localStorage.getItem("employees")
+    ) || [];
 
 const form =
     document.getElementById("employeeForm");
@@ -12,13 +14,23 @@ form.addEventListener("submit", function(e){
 
     let employee = {
 
-        id: Date.now(),
+        id:
+            "EMP" + Date.now(),
 
         name:
             document.getElementById("name").value,
 
+        department:
+            document.getElementById("department").value,
+
         designation:
             document.getElementById("designation").value,
+
+        email:
+            document.getElementById("email").value,
+
+        phone:
+            document.getElementById("phone").value,
 
         salary:
             document.getElementById("salary").value
@@ -31,14 +43,14 @@ form.addEventListener("submit", function(e){
         JSON.stringify(employees)
     );
 
-    alert("Employee Added");
+    alert("Employee Added Successfully");
 
     window.location =
         "viewEmployees.html";
 });
 }
 
-function loadEmployees(){
+function loadEmployees(list = employees){
 
     let table =
         document.getElementById("employeeTable");
@@ -46,18 +58,20 @@ function loadEmployees(){
     if(!table)
         return;
 
-    table.innerHTML="";
+    table.innerHTML = "";
 
-    employees.forEach((emp,index)=>{
+    list.forEach((emp,index)=>{
 
         table.innerHTML +=
         `
         <tr>
             <td>${emp.id}</td>
             <td>${emp.name}</td>
+            <td>${emp.department}</td>
             <td>${emp.designation}</td>
-            <td>${emp.salary}</td>
-
+            <td>${emp.email}</td>
+            <td>${emp.phone}</td>
+            <td>₹ ${emp.salary}</td>
             <td>
                 <button
                 onclick="deleteEmployee(${index})">
@@ -79,6 +93,63 @@ function deleteEmployee(index){
     );
 
     loadEmployees();
+    loadDashboard();
+}
+
+function loadDashboard(){
+
+    let total =
+        document.getElementById(
+            "totalEmployees"
+        );
+
+    let dept =
+        document.getElementById(
+            "totalDepartments"
+        );
+
+    if(total)
+        total.innerHTML =
+            employees.length;
+
+    if(dept){
+
+        let departments =
+            [...new Set(
+                employees.map(
+                    e => e.department
+                )
+            )];
+
+        dept.innerHTML =
+            departments.length;
+    }
+}
+
+const search =
+    document.getElementById("search");
+
+if(search){
+
+search.addEventListener(
+    "keyup",
+    function(){
+
+    let value =
+        this.value.toLowerCase();
+
+    let filtered =
+        employees.filter(emp =>
+            emp.name.toLowerCase()
+            .includes(value)
+            ||
+            emp.department.toLowerCase()
+            .includes(value)
+        );
+
+    loadEmployees(filtered);
+});
 }
 
 loadEmployees();
+loadDashboard();

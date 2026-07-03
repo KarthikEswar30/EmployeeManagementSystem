@@ -1,37 +1,48 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Employees</title>
+    <title>View Employees</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="container">
 
-<h1>Employee List</h1>
+    <h1>Employee Details</h1>
 
-<table>
+    <input
+        type="text"
+        id="search"
+        placeholder="Search by Name or Department">
 
-<thead>
-<tr>
-    <th>ID</th>
-    <th>Name</th>
-    <th>Designation</th>
-    <th>Salary</th>
-    <th>Actions</th>
-</tr>
-</thead>
+    <table>
 
-<tbody id="employeeTable">
-</tbody>
+        <thead>
 
-</table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Department</th>
+            <th>Designation</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Salary</th>
+            <th>Action</th>
+        </tr>
 
-<br>
+        </thead>
 
-<a href="index.html">
-    <button>Back</button>
-</a>
+        <tbody id="employeeTable">
+
+        </tbody>
+
+    </table>
+
+    <br>
+
+    <a href="index.html">
+        <button>Back</button>
+    </a>
 
 </div>
 
